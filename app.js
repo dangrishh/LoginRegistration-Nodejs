@@ -6,16 +6,11 @@ const express = require("express"),
 const User = require("./model/User");
 const app = express();
 const port = process.env.PORT || 3002;
-  
 
 // Middleware
-
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
-  
 //=====================
 // ROUTES
 //=====================
@@ -61,6 +56,7 @@ app.post("/login", async function(req, res){
           if (result) {
             res.render("secret");
           } else {
+            
             res.status(400).json({ error: "password doesn't match" });
           }
         } else {
@@ -73,13 +69,8 @@ app.post("/login", async function(req, res){
   
 //Handling user logout 
 app.get("/logout", function (req, res) {
-    req.logout(function(err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-      });
-});
-  
-  
+    res.render("login");
+}); 
   
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) return next();
